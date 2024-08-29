@@ -182,7 +182,7 @@ function navHighlighter() {
     });
 }
 
-//================= share button =================
+//================= share button ================= 
 document.addEventListener('DOMContentLoaded', () => {
     const url = encodeURIComponent(window.location.href);
     const title = encodeURIComponent(document.title);
