@@ -45,12 +45,6 @@ a {
     color: var(--skin-color)
 }
 
-.btn-share:hover .popup-menu,
-.popup-menu a,
-.skills-active[data-content] {
-    display: block
-}
-
 #back-to-top,
 .btn-share,
 .nav-logo,
@@ -367,9 +361,21 @@ input {
 }
 
 .home-img,
-.portfolio-item-datails,
+.portfolio-item-datails{
+    display: none;
+}
+
+.btn-share:hover .popup-menu,
+.popup-menu a {
+    display: block;
+}
+
 .skills [data-content] {
     display: none;
+}
+
+.skills-active[data-content] {
+    display: block; 
 }
 
 .home-title {
@@ -631,8 +637,8 @@ input {
 }
 
 .skills-active .skills-arrow {
-    transform: rotate(-90deg);
-    transition: .3s;
+    transform: rotate(-90deg); 
+    transition: 0.3s; 
 }
 
 .skills-list {
@@ -651,12 +657,6 @@ input {
     border-radius: .25rem;
 }
 
-.work-card,
-.work-img,
-.work-item {
-    border-radius: .5rem;
-}
-
 .skills-bar {
     background-color: var(--box-color);
 }
@@ -664,6 +664,12 @@ input {
 .skills-percentage {
     display: block;
     background-color: var(--skin-color);
+}
+
+.work-card,
+.work-img,
+.work-item {
+    border-radius: .5rem;
 }
 
 .work-container {

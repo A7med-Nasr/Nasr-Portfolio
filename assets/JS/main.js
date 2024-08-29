@@ -46,17 +46,19 @@ tabs.forEach(tab => {
 
         tabContent.forEach(tabContents => {
             tabContents.classList.remove('skills-active');
-        })
+        });
 
         target.classList.add('skills-active');
 
         tabs.forEach(tab => {
             tab.classList.remove('skills-active');
-        })
+        });
 
         tab.classList.add('skills-active');
-    })
-})
+    });
+});
+
+
 
 //================= mixitup filter =================
 let mixerPortfolio = mixitup('.work-container', {
