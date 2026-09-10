@@ -248,3 +248,56 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
     document.getElementById('share-whatsapp').href = `https://api.whatsapp.com/send?text=${title}%20${url}`;
 });
+//================= custom cursor (dot + hover growth + hover label) =================
+// Vanilla JS, no external library: the project's existing stack (Bootstrap,
+// mixitup, Swiper) has no animation engine, so a rAF-driven lerp gives a
+// smooth trailing feel without adding a GSAP dependency just for this.
+const cursorDot = document.querySelector('.cursor-dot');
+const canHover = window.matchMedia('(hover: hover)').matches;
+
+if (cursorDot && canHover) {
+    let targetX = window.innerWidth / 2, targetY = window.innerHeight / 2;
+    let currentX = targetX, currentY = targetY;
+
+    window.addEventListener('mousemove', (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+    });
+
+    function renderCursor() {
+        currentX += (targetX - currentX) * 0.2;
+        currentY += (targetY - currentY) * 0.2;
+        cursorDot.style.transform = `translate(${currentX}px, ${currentY}px) translate(-50%, -50%)`;
+        requestAnimationFrame(renderCursor);
+    }
+    requestAnimationFrame(renderCursor);
+
+    document.querySelectorAll('a, button, .work-item, .services-button, .contact-button').forEach((el) => {
+        el.addEventListener('mouseenter', () => cursorDot.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => cursorDot.classList.remove('cursor-hover'));
+    });
+
+    document.querySelectorAll('[data-cursor]').forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+            cursorDot.classList.add('cursor-label');
+            cursorDot.textContent = el.getAttribute('data-cursor');
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorDot.classList.remove('cursor-label');
+            cursorDot.textContent = '';
+        });
+    });
+} else if (cursorDot) {
+    cursorDot.style.display = 'none';
+}
+
+//================= hero cursor spotlight =================
+const heroSection = document.getElementById('home');
+
+if (heroSection && canHover) {
+    heroSection.addEventListener('mousemove', (e) => {
+        const r = heroSection.getBoundingClientRect();
+        heroSection.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+        heroSection.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+}
