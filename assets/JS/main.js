@@ -184,6 +184,61 @@ function navHighlighter() {
     });
 }
 
+//================= typing effect (home subtitle) =================
+const typedTarget = document.getElementById('typed-role');
+
+if (typedTarget) {
+    const roles = ['Frontend Developer', 'React Developer', 'UI Engineer'];
+    let roleIndex = 0, charIndex = 0, deleting = false;
+
+    function typeLoop() {
+        const currentRole = roles[roleIndex];
+
+        if (!deleting) {
+            charIndex++;
+            typedTarget.textContent = currentRole.slice(0, charIndex);
+            if (charIndex === currentRole.length) {
+                deleting = true;
+                setTimeout(typeLoop, 1800);
+                return;
+            }
+        } else {
+            charIndex--;
+            typedTarget.textContent = currentRole.slice(0, charIndex);
+            if (charIndex === 0) {
+                deleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+            }
+        }
+        setTimeout(typeLoop, deleting ? 40 : 90);
+    }
+
+    typeLoop();
+}
+
+//================= animated skill progress bars =================
+const skillBars = document.querySelectorAll('.skills-percentage');
+
+const skillsObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.style.width = entry.target.dataset.width + '%';
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.4 });
+
+skillBars.forEach((bar) => skillsObserver.observe(bar));
+
+//================= close modals on outside click =================
+document.querySelectorAll('.services-modal, .portfolio-popup').forEach((overlay) => {
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.classList.remove('active-modal', 'open');
+        }
+    });
+});
+
 //================= share button ================= 
 document.addEventListener('DOMContentLoaded', () => {
     const url = encodeURIComponent(window.location.href);
